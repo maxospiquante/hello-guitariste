@@ -1,5 +1,5 @@
 const tons = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#" ];
-const mM = ["maj" , "min"  , "min7b5"   , "dim" , "aug"  , "maj7"  , "min7"  , "7" , "minmaj7"  , "maj7#5"  , "dim7"  ];
+
 const scale = ["Ionian","Dorian","Phrygian","Lydian","Mixolydian","Aeolian","Locrian"];
 
  // https://www.anyonecanplayguitar.co.uk/resources/
@@ -7,8 +7,7 @@ var leton_;
 var lemm_;
 var lescale_;
 var myChords;
-//var familyOfTriads = [[0,4,7],[0,3,7],[0,3,6],[0,4,8]];
-//var familyOfTriads = [[0,4,7] ];
+ 
 
 
 var MIDI_NUM_NAMES = ["C_1", "C#_1", "D_1", "D#_1", "E_1", "F_1", "F#_1", "G_1", "G#_1", "A_1", "A#_1", "B_1",
@@ -49,23 +48,155 @@ var MIDI_FLAT_NAMES = ['C_1', 'Db_1', 'D_1', 'Eb_1', 'Fb_1', 'F_1', 'Gb_1', 'G_1
 
 					
 					
-					
+					/**
+					 * 
+					 * 
+					 * 
+					 *  
+  Majeure (1 3 5), MAJ_CHORD  maj
+   Mineure(1 b3 5),  MIN_CHORD   min
+	diminuée (1 b3 b5)  DIM_CHORD    dim
+	et augmentée (1 3 #5)  AUG_CHORD    aug
+	 
+	Majeur 7 (1 3 5 7),  MAJ7_CHORD    maj7
+	 mineur 7 (1 b3 5 b7) ,  MIN7_CHORD       min7
+	  demi diminué (1 b3 b5 b7) ,  MIN7B5_CHROD    m7b5 
+	   dominante 7 (1 3 5 b7)  T7_CHORD     7  
+	 diminué 7 (1 b3 b3 bb7(6).    DIM7_CHORD   dim7
+
+					 */
 					
 					
  var piano;
-var MAJ_CHORD =  [[0,4,7 ]]; 
-var MIN_CHORD = [[0,3,7]];
-var MIN7B5_CHROD = [[0, 3, 6, 10 ]];	
-var DIM_CHORD = [[0,3,6]];
-var AUG_CHORD = [[0,4,8]];
-var MAJ7_CHORD = [[0,4,7,11]];	
-var MIN7_CHORD = [[0,3,7,10]];	
-var T7_CHORD = [[0,4,7,11 ]];	
-var MINMAJ7_CHORD = [[0,3,7,11 ]];	
-var MAJ75_CHORD = [[0,4,8,10 ]];	
-var DIM7_CHORD = [[0,3,6,9 ]];	
-					
-					
+
+ const mM = ["maj" , "min"  ,  "dim" , "aug"  , "maj7"  , "min7" , "m7b5", "7"  , "dim7"  ];
+
+var MAJ_CHORD =  [[0,4,7 ]]; //  Majeure (1 3 5)
+var MIN_CHORD = [[0,3,7]];   //  Mineure(1 b3 5)
+var DIM_CHORD = [[0,3,6]];   // diminuée (1 b3 b5) 
+var AUG_CHORD = [[0,4,8]];  //  augmentée (1 3 #5) 
+
+var MAJ7_CHORD = [[0,4,7,11]];	 //  Majeur 7 (1 3 5 7)
+var MIN7_CHORD = [[0,3,7,10]];	// mineur 7 (1 b3 5 b7)
+
+var MIN7B5_CHROD = [[0, 3, 6, 10 ]];	// demi diminué
+var T7_CHORD = [[0,4,7,10 ]];    	//  dominante 7 
+var DIM7_CHORD = [[0,3,6,9]];//diminué 7 (1 b3 b3 bb7(6).
+
+
+ 
+
+
+function getChordID(){
+ 
+	if(this.lemm_=='maj'){
+
+		if (this.leton_.includes('#') ){
+			return '31-major';		
+		}
+
+		return '85-major';
+	}
+	if(this.lemm_=='min'){
+
+		if (this.leton_.includes('#') ){
+			return '38-minor';		
+		}
+
+		return '92-minor';
+	}
+	if(this.lemm_=='m7b5'){
+
+		if (this.leton_.includes('#') ){
+			return '145-minor-7-b5';		
+		}
+
+		return '84-minor-7-b5';
+	}
+	if(this.lemm_=='dim'){
+
+		if (this.leton_.includes('#') ){
+			return '110-dim';
+		}
+
+		return '124-dim';
+	}
+	if(this.lemm_=='aug'){
+
+		if (this.leton_.includes('#') ){
+			return '115-aug';
+		}
+
+		return '114-aug';
+	}
+	if(this.lemm_=='maj7'){
+		
+		if (this.leton_.includes('#') ){
+			return '33-major-7';
+		}
+
+		return '87-major-7';
+	}
+	if(this.lemm_=='min7'){
+		
+		if (this.leton_.includes('#') ){
+			return '42-minor-7';
+		}
+		return '96-minor-7';
+	}
+	if(this.lemm_=='7'){
+		
+			if (this.leton_.includes('#') ){
+				return '20-7';
+			}
+			
+			return '6-7';
+	}
+	if(this.lemm_=='dim7'){
+		
+			if (this.leton_.includes('#') ){
+				return '29-dim-7';
+			}
+			
+			return '83-dim-7';
+	}
+
+}
+
+
+function getChordFormula(){
+
+
+	if(this.lemm_=='maj'){
+		return MAJ_CHORD;
+	}
+	if(this.lemm_=='min'){
+		return MIN_CHORD;
+	}
+	if(this.lemm_=='dim'){
+		return DIM_CHORD;
+	}
+	if(this.lemm_=='aug'){
+		return AUG_CHORD;
+	}
+	if(this.lemm_=='maj7'){
+		return MAJ7_CHORD;
+	}
+	if(this.lemm_=='min7'){
+		return MIN7_CHORD;
+	}
+	if(this.lemm_=='m7b5'){
+		return MIN7B5_CHROD;
+	}
+		if(this.lemm_=='7'){
+		return T7_CHORD;
+	}
+	if(this.lemm_=='dim7'){
+		return DIM7_CHORD;
+	}
+	
+}
+ 
 var IONIAN_SCALE = [0,2,4,5,7,9,11,12];
 var DORIAN_SCALE = [0,2,3,5,7,9,10,12];
 var PHRY_SCALE = [0,1,3,5,7,8,10,12];	
@@ -199,99 +330,6 @@ function  getNoteChordUrl(){
 
 
 
-function getChordID(){
- 
-	if(this.lemm_=='maj'){
-
-		if (this.leton_.includes('#') ){
-			return '31-major';		
-		}
-
-		return '85-major';
-	}
-	if(this.lemm_=='min'){
-
-		if (this.leton_.includes('#') ){
-			return '38-minor';		
-		}
-
-		return '92-minor';
-	}
-	if(this.lemm_=='min7b5'){
-
-		if (this.leton_.includes('#') ){
-			return '145-minor-7-b5';		
-		}
-
-		return '84-minor-7-b5';
-	}
-	if(this.lemm_=='dim'){
-
-		if (this.leton_.includes('#') ){
-			return '110-dim';
-		}
-
-		return '124-dim';
-	}
-	if(this.lemm_=='aug'){
-
-		if (this.leton_.includes('#') ){
-			return '115-aug';
-		}
-
-		return '114-aug';
-	}
-	if(this.lemm_=='maj7'){
-		
-		if (this.leton_.includes('#') ){
-			return '33-major-7';
-		}
-
-		return '87-major-7';
-	}
-	if(this.lemm_=='min7'){
-		
-		if (this.leton_.includes('#') ){
-			return '42-minor-7';
-		}
-		return '96-minor-7';
-	}
-		if(this.lemm_=='7'){
-		
-			if (this.leton_.includes('#') ){
-				return '20-7';
-			}
-			
-			return '6-7';
-	}
-		if(this.lemm_=='minmaj7'){
-		
-			if (this.leton_.includes('#') ){
-				return '45-minormajor-7';
-			}
-
-			return '99-minormajor-7';
-	}
-		if(this.lemm_=='maj7#5'){
-		
-			if (this.leton_.includes('#') ){
-				return '147-major-75';
-			}
-		
-			return '90-major-75';
-	}
-		if(this.lemm_=='dim7'){
-		
-		
-			if (this.leton_.includes('#') ){
-				return '29-dim-7';
-			}
-			
-			return '83-dim-7';
-	}
-
-}
-
 function getChordUrl(){
 
 	//1-a   2-b  ..
@@ -342,45 +380,6 @@ var note = this.leton_+'4';
 synth.triggerAttackRelease(note, '8n');
 }
 
-
-function getChordFormula(){
-
-
-	if(this.lemm_=='maj'){
-		return MAJ_CHORD;
-	}
-	if(this.lemm_=='min'){
-		return MIN_CHORD;
-	}
-	if(this.lemm_=='min7b5'){
-		return MIN7B5_CHROD;
-	}
-	if(this.lemm_=='dim'){
-		return DIM_CHORD;
-	}
-	if(this.lemm_=='aug'){
-		return AUG_CHORD;
-	}
-	if(this.lemm_=='maj7'){
-		return MAJ7_CHORD;
-	}
-	if(this.lemm_=='min7'){
-		return MIN7_CHORD;
-	}
-		if(this.lemm_=='7'){
-		return T7_CHORD;
-	}
-		if(this.lemm_=='minmaj7'){
-		return MINMAJ7_CHORD;
-	}
-		if(this.lemm_=='maj7#5'){
-		return MAJ75_CHORD;
-	}
-		if(this.lemm_=='dim7'){
-		return DIM7_CHORD;
-	}
-	
-}
 
 
 function getScaleFormula(){
