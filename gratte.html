@@ -102,17 +102,18 @@
       <div class="container" id="main">
         <!-- Example row of columns -->
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-3">
             <h2>Trouve tous les</h2>
             <p><span id="lechord"></span></p>
+            <p><span id="type_note_recherche"></span></p>
 			<p><a class="btn btn-secondary" href="#" role="button" onclick="shownotes();" >Voir les notes &raquo;</a></p>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <h2>Joue l'accord partout de</h2>
             <p><span id="lechord2"></span><span id="lem"></span>  <span id="chordoutput"></span></p>
             <p><a class="btn btn-secondary" href="javascript:void(0)" role="button" onclick="showchord();">View details &raquo;</a></p>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <h2>Joue la gamme</h2>
             <p><span id="lechord3"></span> <span id="lescale"></span></p>
             <p><a class="btn btn-secondary" href="javascript:void(0)" role="button" onclick="showscale();" >Voir pattern du mode &raquo;</a></p>
@@ -125,7 +126,19 @@
 			
 			 
           </div>
-        </div>
+          <div class="col-md-3">
+            <h2>Joue la triade majeur de </h2>
+            <p><span id="lechord4"></span></p>
+      
+            
+            <p><span id="accord_type_recherche_id"></span></p>
+            
+            
+            
+            
+			 
+          </div>
+        
         <!-- 
        <div class="row"  >
           <div class="col-md-4 border border-dark">
@@ -198,7 +211,7 @@
     </main>
 
     <footer class="container">
-      <p>&copy; Maxos v1.0.2</p>
+      <p>&copy; Maxos v1.1.0</p>
     </footer>
 
     <!-- Bootstrap core JavaScript

@@ -2,12 +2,19 @@ const tons = ["A","A#","B","C","C#","D","D#","E","F","F#","G","G#" ];
 
 const scale = ["Ionian","Dorian","Phrygian","Lydian","Mixolydian","Aeolian","Locrian"];
 
+const note_type_recherche = ["Depuis la tête du manche","Depuis le chevalet","Corde par corde en démarrant par la grave","Corde par corde en démarant par l'aigue"];
+
+const accord_type_recherche = ["Depuis la corde de E grave","Depuis la corde A","Depuis la corde D","Depuis la corde G"];
+
+
  // https://www.anyonecanplayguitar.co.uk/resources/
 var leton_;
 var lemm_;
 var lescale_;
 var myChords;
  
+
+var letypenoterecherche_;
 
 
 var MIDI_NUM_NAMES = ["C_1", "C#_1", "D_1", "D#_1", "E_1", "F_1", "F#_1", "G_1", "G#_1", "A_1", "A#_1", "B_1",
@@ -233,16 +240,27 @@ function randomALL(){
 	this.leton_ = tons[Math.floor(Math.random() * tons.length)];
 	this.lemm_ = mM[Math.floor(Math.random() * mM.length)];
 	this.lescale_ = scale[Math.floor(Math.random() * scale.length)];
-
+	this.letypenoterecherche_=note_type_recherche[Math.floor(Math.random() * note_type_recherche.length)];
+	this.accord_type_recherche_=accord_type_recherche[Math.floor(Math.random() * accord_type_recherche.length)];
+	
+	 
 	
 	document.getElementById("lechord").innerHTML=leton_; 
 	document.getElementById("lechord2").innerHTML=leton_;
 	document.getElementById("lechord3").innerHTML=leton_;
-	
+	document.getElementById("lechord4").innerHTML=leton_;
+
 	document.getElementById("lem").innerHTML=lemm_; 
 	document.getElementById("lescale").innerHTML=lescale_; 
 	
-	 
+	document.getElementById("type_note_recherche").innerHTML=letypenoterecherche_;  
+  
+	document.getElementById("accord_type_recherche_id").innerHTML=accord_type_recherche_;  
+  
+	
+
+
+
 	$( "p[id^='help_']" ).hide();
 	$( "p[id='help_"+lemm_+"']" ).show();
 	 
